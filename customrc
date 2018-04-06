@@ -6,8 +6,30 @@ if [ -n "$ZSH_VERSION" ]; then
 elif [ -n "$BASH_VERSION" ]; then
   # assume Bash
   echo -n
+  source ~/.bash_profile
 fi
 
 export XDG_CONFIG_HOME="$SCRIPTS_PATH"
-export DEFAULT_USER="josh"
+export DEFAULT_USER="jtrodriguez"
+
+# PATH variables
+export ANDROID_SDK=/opt/android_sdk
+export ANDROID_NDK_REPOSITORY=/opt/android_ndk
+export ANDROID_HOME=${ANDROID_SDK}
+export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home'
+
+export PATH=${JAVA_HOME}/bin:${PATH}:${ANDROID_SDK}/tools:${ANDROID_SDK}/platform-tools:/usr/local/bin
+
+# Commands
+alias src="source ~/.customrc"
+alias editBash="mate ~/.customrc"
+
+# Source Control
+alias hs="hg status"
+alias hp="hg pull"
+alias hpr="hg pull && hg rebase -d master"
+alias hl="hg ssl"
+alias hc="hg commit -m"
+alias hco="hg update"
+alias hpush="arc diff --preview"
 
