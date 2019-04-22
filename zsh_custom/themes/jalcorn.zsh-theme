@@ -83,7 +83,7 @@ prompt_context() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment $JA_DEFAULT_BG blue '%~'
+  prompt_segment $JA_DEFAULT_BG cyan '%~'
 }
 
 simple_git() {
@@ -185,6 +185,20 @@ prompt_git() {
   fi
 }
 
+prompt_hg() {
+  if [ -n "$DISABLE_HG" ] ; then return ; fi
+  (( $+commands[hg] )) || return
+
+  hg root > /dev/null 2> /dev/null
+  if [ $? -eq 0 ] ; then
+    # In hg repo
+    local ref=$(hg id -i)
+    if [ -n $ref ] ; then 
+      echo -n " %{%F{yellow}%}($ref)"
+    fi
+  fi
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -192,7 +206,7 @@ build_prompt() {
   #prompt_time
   prompt_context
   prompt_dir
-  prompt_git
+  prompt_hg
   prompt_end
 }
 
